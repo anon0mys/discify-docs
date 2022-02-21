@@ -240,6 +240,20 @@ name | string | The name of the player
 }
 ```
 
+## Delete a Player
+
+This endpoint deletes a player.
+
+### HTTP Request
+
+`DELETE  https://discify-api.herokuapp.com/api/v1/players/:id`
+
+### URL Parameters
+
+Parameter | Type | Description
+--------- | ---- | -----------
+ID | number | The ID of the player to delete
+
 # Rounds
 
 ## Create a Round
