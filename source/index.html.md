@@ -1,14 +1,7 @@
 ---
 title: API Reference
 
-language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
-  - javascript
-
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -20,226 +13,410 @@ code_clipboard: true
 
 meta:
   - name: description
-    content: Documentation for the Kittn API
+    content: Documentation for the Discify API
 ---
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the Discify API! You can use this API to access Discify API endpoints, which can get information on courses, and manage players and rounds.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+## POST and PATCH Requests
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+> Example:
 
-# Authentication
-
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+```json
+{
+  "resource": {
+    "attribute": "Test"
+  }
+}
 ```
 
-```python
-import kittn
+All POST/PATCH request payloads require a top level key which represents the resource that is being created or updated.
 
-api = kittn.authorize('meowmeowmeow')
+# Courses
+
+## Get All Courses
+
+This endpoint retrieves a list of disc golf courses.
+
+### HTTP Request
+
+`GET  https://discify-api.herokuapp.com/api/v1/courses`
+
+### Query Parameters
+
+> Example Response:
+
+```json
+[
+  {
+        "id": 1,
+        "name": "Village Greens",
+        "description": "This is a course with a description",
+        "city": "Greenwood Village",
+        "state": "CO",
+        "location": null,
+        "rating": 4.0,
+        "holes": 9,
+        "availability": "Year Round",
+        "tees": "Concrete",
+        "targets": "Mach V",
+        "property": "Public Park",
+        "services": "Dogs Allowed, Restrooms Available",
+        "established": "2013"
+    },
+    {
+        "id": 2,
+        "name": "Peace with Christ Lutheran Church",
+        "description": null,
+        "city": "Aurora",
+        "state": "CO",
+        "location": null,
+        "rating": 3.1,
+        "holes": 9,
+        "availability": "Year Round - It is at a church. Sundays are hit or miss.",
+        "tees": null,
+        "targets": null,
+        "property": "Mixed Use, Church",
+        "services": "Dogs Allowed",
+        "established": "2000"
+    }
+]
 ```
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
+Parameter | Type | Description
+--------- | ---- | -----------
+name | string | Fuzzy search for courses by name.
+city | string | Fuzzy search for courses in a city. 
+state | string | Search for courses in a state. 
+holes_min | number | Search for courses that have at least this number of holes. 
+rating_min | number | Search for courses that have at least this rating. 
+
+
+## Get a Specific Course
+
+This endpoint retrieves a specific course.
+
+### HTTP Request
+
+`GET  https://discify-api.herokuapp.com/api/v1/courses/:id`
+
+### URL Parameters
+
+> Example Response:
+
+```json
+{
+    "id": 15,
+    "name": "Paco Sanchez",
+    "description": "Signs not labeled, some missing. Challenging course. Hole 1 under construction, tee off from sidewalk.",
+    "city": "Denver",
+    "state": "CO",
+    "location": null,
+    "rating": 3.5,
+    "holes": 21,
+    "availability": "Year Round",
+    "tees": "Concrete",
+    "targets": "Mach V",
+    "property": "Mixed Use, Public Park",
+    "services": "",
+    "established": "2006",
+    "layouts": [
+        {
+            "name": "Main Layout 21 Holes Current 10/15/2020",
+            "description": "Note: Hole 1 sidewalk tee off. Additional Note: Hole 8, MANDO right of both transmission towers. Par is up to date.",
+            "total_par": 70,
+            "total_distance": 8450,
+            "holes": [
+                {
+                    "hole_number": 1,
+                    "par": 4,
+                    "distance": 575
+                },
+                {
+                    "hole_number": 2,
+                    "par": 4,
+                    "distance": 615
+                }
+                // ... holes
+            ]
+        },
+        {
+            "name": "Front 9 Loop",
+            "description": "1-8, 21 coming back ",
+            "total_par": 31,
+            "total_distance": 4483,
+            "holes": [
+                // ... holes
+            ]
+        }
+        // ... layouts
+    ]
+}
 ```
 
-```javascript
-const kittn = require('kittn');
+Parameter | Type | Description
+--------- | ---- | -----------
+ID | number | The ID of the course to retrieve
 
-let api = kittn.authorize('meowmeowmeow');
-```
+# Players
 
-> Make sure to replace `meowmeowmeow` with your API key.
+## Get All Players
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+This endpoint retrieves a list of players.
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
+### HTTP Request
+> Example Response:
 
 ```json
 [
   {
     "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
+    "name": "Name"
   },
   {
     "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+    "name": "Other Name"
   }
 ]
 ```
 
-This endpoint retrieves all kittens.
+`GET  https://discify-api.herokuapp.com/api/v1/players`
+
+## Get a Specific Player
+
+This endpoint retrieves a specific player.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
+`GET  https://discify-api.herokuapp.com/api/v1/players/:id`
 
 ### URL Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
+> Example Response:
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+  "id": 1,
+  "name": "Name"
 }
 ```
 
-This endpoint deletes a specific kitten.
+Parameter | Type | Description
+--------- | ---- | -----------
+ID | number | The ID of the player to retrieve
+
+## Create a Player
+
+This endpoint creates a player.
 
 ### HTTP Request
 
-`DELETE http://example.com/kittens/<ID>`
+`POST  https://discify-api.herokuapp.com/api/v1/players`
+
+### Request Body
+
+> Example Request Body:
+
+```json
+{
+  "player": {
+    "name": "Test"
+  }
+}
+```
+
+Parameter | Type | Description
+--------- | ---- | -----------
+name | string | The name of the player
+
+> Example Response:
+
+```json
+{
+  "id": 1,
+  "name": "Name"
+}
+```
+
+# Rounds
+
+## Create a Round
+
+This endpoint creates a round at a specific course and layout.
+
+### HTTP Request
+
+`POST  https://discify-api.herokuapp.com/api/v1/rounds`
+
+### Request Body
+
+> Example Request Body:
+
+```json
+{
+  "round": {
+    "course_id": 1,
+    "layout_id": 2,
+    "player_ids": [1, 2, 3]
+  }
+}
+```
+
+Parameter | Type | Description
+--------- | ---- | -----------
+course_id | number | The id of the Course where the round is being played
+layout_id | number | The id of the Layout of the course that is being played
+player_ids | array[numbers] | The ids of the Players playing
+
+> Example Response:
+
+```json
+{
+  "id": 1,
+  "course_name": "Name",
+  "layout_name": "Main",
+  "date": "01/20/2022",
+  "holes": [
+    {
+      "hole_number": 1,
+      "par": 4,
+      "distance": 575
+    },
+    {
+      "hole_number": 2,
+      "par": 4,
+      "distance": 615
+    }
+  ]
+}
+```
+
+## End a Round
+
+This endpoint ends a round. There are two ways to track scores. The `player_scores` param for the body of this post request can be used to end the round and set final scores for the players. Alternately, there is a per-hole tracking endpoint to track as the game goes on. If per-hole tracking is used, the body is not required for this endpoint. Scores in the body will override calculated scores.
+
+### HTTP Request
+
+`POST  https://discify-api.herokuapp.com/api/v1/rounds/:id/end_round`
 
 ### URL Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+Parameter | Type | Description
+--------- | ---- | -----------
+ID | number | The ID of the round to end
 
+### Request Body
+
+> Example Request Body:
+
+```json
+{
+  "round": {
+    "player_scores": [
+      {
+        "player_id": 1,
+        "total_score": 54
+      },
+      {
+        "player_id": 2,
+        "total_score": 53
+      }
+    ]
+  }
+}
+```
+
+Top Level Parameter | Nested Parameter | Type | Description
+------------------- | ---------------- | ---- | -----------
+player_scores [Optional] | | array[player_scores] | The list of final scores for each player
+  | player_id | number | The id of the Player
+  | total_score | number | A Player's total score for this round
+
+> Example Response:
+
+```json
+{
+  "id": 1,
+  "course_name": "Name",
+  "layout_name": "Main",
+  "total_par": 54,
+  "date": "01/20/2022",
+  "scores": [
+    {
+      "player_id": 1,
+      "total_score": 52,
+      "score": -2
+    },
+    {
+      "player_id": 2,
+      "total_score": 56,
+      "score": 2
+    }
+  ]
+}
+```
+
+## Score a Hole
+
+This endpoint tracks player scores for a single hole.
+
+### HTTP Request
+
+`POST  https://discify-api.herokuapp.com/api/v1/rounds/:id/score_hole`
+
+### URL Parameters
+
+Parameter | Type | Description
+--------- | ---- | -----------
+ID | number | The ID of the round that the hole belongs to
+
+### Request Body
+
+> Example Request Body:
+
+```json
+{
+  "hole": {
+    "hole_number": 1,
+    "player_scores": [
+      {
+        "player_id": 1,
+        "strokes": 3
+      },
+      {
+        "player_id": 2,
+        "strokes": 4
+      }
+    ]
+  }
+}
+```
+
+Top Level Parameter | Nested Parameter | Type | Description
+------------------- | ---------------- | ---- | -----------
+hole_number | | number | The hole number to add scores to
+player_scores | | array[player_scores] | A list of scores for each player on this hole
+  | player_id | number | The id of the Player
+  | strokes | number | A Player's count of strokes for this hole
+
+> Example Response:
+
+```json
+{
+  "hole_number": 1,
+  "scores": [
+    {
+      "player_id": 1,
+      "strokes": 2,
+      "score": -1
+    },
+    {
+      "player_id": 2,
+      "strokes": 5,
+      "score": 2
+    }
+  ]
+}
+```
