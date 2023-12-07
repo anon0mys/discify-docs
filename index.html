@@ -340,6 +340,9 @@
                   <li>
                     <a href="#create-a-player" class="toc-h2 toc-link" data-title="Create a Player">Create a Player</a>
                   </li>
+                  <li>
+                    <a href="#delete-a-player" class="toc-h2 toc-link" data-title="Delete a Player">Delete a Player</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -347,6 +350,9 @@
               <ul class="toc-list-h2">
                   <li>
                     <a href="#create-a-round" class="toc-h2 toc-link" data-title="Create a Round">Create a Round</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-specific-round" class="toc-h2 toc-link" data-title="Get a Specific Round">Get a Specific Round</a>
                   </li>
                   <li>
                     <a href="#end-a-round" class="toc-h2 toc-link" data-title="End a Round">End a Round</a>
@@ -534,11 +540,15 @@
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Name"</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Name"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"average_score"</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"rounds_played"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Other Name"</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Other Name"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"average_score"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"rounds_played"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
@@ -553,7 +563,9 @@
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Name"</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Name"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"average_score"</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"rounds_played"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <table><thead>
@@ -602,11 +614,31 @@
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Name"</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Name"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"average_score"</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"rounds_played"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h1 id='rounds'>Rounds</h1><h2 id='create-a-round'>Create a Round</h2>
-<p>This endpoint creates a round at a specific course and layout.</p>
+</span></code></pre></div><h2 id='delete-a-player'>Delete a Player</h2>
+<p>This endpoint deletes a player.</p>
 <h3 id='http-request-6'>HTTP Request</h3>
+<p><code>DELETE  https://discify-api.herokuapp.com/api/v1/players/:id</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>number</td>
+<td>The ID of the player to delete</td>
+</tr>
+</tbody></table>
+<h1 id='rounds'>Rounds</h1><h2 id='create-a-round'>Create a Round</h2>
+<p>This endpoint creates a round at a specific course and layout.</p>
+<h3 id='http-request-7'>HTTP Request</h3>
 <p><code>POST  https://discify-api.herokuapp.com/api/v1/rounds</code></p>
 <h3 id='request-body-2'>Request Body</h3>
 <blockquote>
@@ -665,11 +697,51 @@
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='end-a-round'>End a Round</h2>
+</span></code></pre></div><h2 id='get-a-specific-round'>Get a Specific Round</h2>
+<p>This endpoint retrieves a specific round.</p>
+<h3 id='http-request-8'>HTTP Request</h3>
+<p><code>GET  https://discify-api.herokuapp.com/api/v1/rounds/:id</code></p>
+<h3 id='url-parameters-4'>URL Parameters</h3>
+<blockquote>
+<p>Example Response:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"course_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Name"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"layout_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Main"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01/20/2022"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"holes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"hole_number"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"par"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"distance"</span><span class="p">:</span><span class="w"> </span><span class="mi">575</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"hole_number"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"par"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"distance"</span><span class="p">:</span><span class="w"> </span><span class="mi">615</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>number</td>
+<td>The ID of the round to retrieve</td>
+</tr>
+</tbody></table>
+<h2 id='end-a-round'>End a Round</h2>
 <p>This endpoint ends a round. There are two ways to track scores. The <code>player_scores</code> param for the body of this post request can be used to end the round and set final scores for the players. Alternately, there is a per-hole tracking endpoint to track as the game goes on. If per-hole tracking is used, the body is not required for this endpoint. Scores in the body will override calculated scores.</p>
-<h3 id='http-request-7'>HTTP Request</h3>
+<h3 id='http-request-9'>HTTP Request</h3>
 <p><code>POST  https://discify-api.herokuapp.com/api/v1/rounds/:id/end_round</code></p>
-<h3 id='url-parameters-3'>URL Parameters</h3>
+<h3 id='url-parameters-5'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -681,52 +753,6 @@
 <td>ID</td>
 <td>number</td>
 <td>The ID of the round to end</td>
-</tr>
-</tbody></table>
-<h3 id='request-body-3'>Request Body</h3>
-<blockquote>
-<p>Example Request Body:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"round"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"player_scores"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"player_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"total_score"</span><span class="p">:</span><span class="w"> </span><span class="mi">54</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"player_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"total_score"</span><span class="p">:</span><span class="w"> </span><span class="mi">53</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<table><thead>
-<tr>
-<th>Top Level Parameter</th>
-<th>Nested Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>player_scores [Optional]</td>
-<td></td>
-<td>array[player_scores]</td>
-<td>The list of final scores for each player</td>
-</tr>
-<tr>
-<td></td>
-<td>player_id</td>
-<td>number</td>
-<td>The id of the Player</td>
-</tr>
-<tr>
-<td></td>
-<td>total_score</td>
-<td>number</td>
-<td>A Player&#39;s total score for this round</td>
 </tr>
 </tbody></table>
 
@@ -754,9 +780,9 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h2 id='score-a-hole'>Score a Hole</h2>
 <p>This endpoint tracks player scores for a single hole.</p>
-<h3 id='http-request-8'>HTTP Request</h3>
+<h3 id='http-request-10'>HTTP Request</h3>
 <p><code>POST  https://discify-api.herokuapp.com/api/v1/rounds/:id/score_hole</code></p>
-<h3 id='url-parameters-4'>URL Parameters</h3>
+<h3 id='url-parameters-6'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -770,7 +796,7 @@
 <td>The ID of the round that the hole belongs to</td>
 </tr>
 </tbody></table>
-<h3 id='request-body-4'>Request Body</h3>
+<h3 id='request-body-3'>Request Body</h3>
 <blockquote>
 <p>Example Request Body:</p>
 </blockquote>
@@ -843,12 +869,16 @@
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h1 id='errors'>Errors</h1>
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
-</aside>
+<p>The Discify API will return a errors object for any error.
+It uses the following error codes:</p>
 
-<p>The Kittn API uses the following error codes:</p>
-
+<blockquote>
+<p>Example Errors Response:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is the message for why your request failed"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <table><thead>
 <tr>
 <th>Error Code</th>
@@ -856,48 +886,12 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 </tr>
 </thead><tbody>
 <tr>
-<td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
-</tr>
-<tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
-</tr>
-<tr>
 <td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
+<td>Not Found -- The specified resource could not be found.</td>
 </tr>
 <tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+<td>422</td>
+<td>Unprocessable Entity -- Your request is invalid.</td>
 </tr>
 </tbody></table>
 
