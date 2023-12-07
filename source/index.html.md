@@ -173,11 +173,15 @@ This endpoint retrieves a list of players.
 [
   {
     "id": 1,
-    "name": "Name"
+    "name": "Name",
+    "average_score": -1,
+    "rounds_played": 5
   },
   {
     "id": 2,
-    "name": "Other Name"
+    "name": "Other Name",
+    "average_score": 3,
+    "rounds_played": 3
   }
 ]
 ```
@@ -199,7 +203,9 @@ This endpoint retrieves a specific player.
 ```json
 {
   "id": 1,
-  "name": "Name"
+  "name": "Name",
+  "average_score": -1,
+  "rounds_played": 5
 }
 ```
 
@@ -236,7 +242,9 @@ name | string | The name of the player
 ```json
 {
   "id": 1,
-  "name": "Name"
+  "name": "Name",
+  "average_score": -1,
+  "rounds_played": 5
 }
 ```
 
@@ -307,6 +315,43 @@ player_ids | array[numbers] | The ids of the Players playing
 }
 ```
 
+## Get a Specific Round
+
+This endpoint retrieves a specific round.
+
+### HTTP Request
+
+`GET  https://discify-api.herokuapp.com/api/v1/rounds/:id`
+
+### URL Parameters
+
+> Example Response:
+
+```json
+{
+  "id": 1,
+  "course_name": "Name",
+  "layout_name": "Main",
+  "date": "01/20/2022",
+  "holes": [
+    {
+      "hole_number": 1,
+      "par": 4,
+      "distance": 575
+    },
+    {
+      "hole_number": 2,
+      "par": 4,
+      "distance": 615
+    }
+  ]
+}
+```
+
+Parameter | Type | Description
+--------- | ---- | -----------
+ID | number | The ID of the round to retrieve
+
 ## End a Round
 
 This endpoint ends a round. There are two ways to track scores. The `player_scores` param for the body of this post request can be used to end the round and set final scores for the players. Alternately, there is a per-hole tracking endpoint to track as the game goes on. If per-hole tracking is used, the body is not required for this endpoint. Scores in the body will override calculated scores.
@@ -320,33 +365,6 @@ This endpoint ends a round. There are two ways to track scores. The `player_scor
 Parameter | Type | Description
 --------- | ---- | -----------
 ID | number | The ID of the round to end
-
-### Request Body
-
-> Example Request Body:
-
-```json
-{
-  "round": {
-    "player_scores": [
-      {
-        "player_id": 1,
-        "total_score": 54
-      },
-      {
-        "player_id": 2,
-        "total_score": 53
-      }
-    ]
-  }
-}
-```
-
-Top Level Parameter | Nested Parameter | Type | Description
-------------------- | ---------------- | ---- | -----------
-player_scores [Optional] | | array[player_scores] | The list of final scores for each player
-  | player_id | number | The id of the Player
-  | total_score | number | A Player's total score for this round
 
 > Example Response:
 
